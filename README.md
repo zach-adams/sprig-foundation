@@ -1,4 +1,4 @@
-Sprig Wordpress Starter Theme
+Sprig Wordpress Starter Theme with Foundation
 =========
 
 Create themes quicker and easier then ever before with the incredible power of Twig's PHP Templating Engine. Built off of [underscore](https://github.com/Automattic/_s/), [Roots](https://github.com/roots/roots), and [Twigpress](https://wordpress.org/plugins/twigpress/), Sprig has tons of functions and useful Wordpress features essential to any theme.
@@ -10,7 +10,7 @@ Special Thanks to [Mike Shaw](https://profiles.wordpress.org/mikeshaw217/), the 
 * [Twig Templating Engine](http://twig.sensiolabs.org/)
 * [Gulp](http://gulpjs.com/) for SASS compiling, file concatination, image minifying, javascript uglifying, and livereload
 * [Bower](http://bower.io/) for front-end package management
-* [Bootstrap](http://getbootstrap.com/)
+* [Foundation](http://foundation.zurb.com/)
 * HTML5 Ready
 * Tons of useful functions and theme activation thanks to [Roots](https://github.com/roots/roots)
 
@@ -107,16 +107,16 @@ There's always a catch. There are some interesting hacks I had to include in ord
 +-- inc/ - Various helpful functions and Twig code. All included in function.php
 |   +-- Twig/ - Twig Engine and init code
 |   +-- activation.php - Code to run on theme activation
-|   +-- comments.php - Custom comments walker optimized for Bootstrap
+|   +-- comments.php - Custom comments walker optimized for Foundation
 |   +-- config.php - Theme configuration options
 |   +-- extras.php - Some extra functions and important Twig Wordpress helper functions
-|   +-- gallery.php - Cleans up the gallery shortcode and optimizes it for Bootstrap
+|   +-- gallery.php - Cleans up the gallery shortcode and optimizes it for Foundation
 |   +-- init.php - Code to run on theme init
 |   +-- scripts.php - Scripts queueing
 |   +-- titles.php - Better titles function (Thanks to _s!)
 |   +-- twigpress.php - Loader for the Twig Engine
 |   +-- utils.php - Utility functions
-|   +-- wp_bootstrap_navwalker.php - Navwalker optimized for Bootstrap
+|   +-- wp_foundation_navwalker.php - Navwalker optimized for Foundation
 +-- src/ - Development Files
 |   +-- js/ - Javascript files
 |   +-- sass/ - Default SASS directory
@@ -168,10 +168,6 @@ Gulp has a plugin called main-bower-files that can read the main files in each b
 3. Put in the name of the Bower Package
 4. **main** is the name of the Javascript files that are passed to Gulp to be minified, you can edit which one Bower chooses by default
 5. **ignore**, if set to true, will set the package to be ignored by Gulp when it looks
-
-## Bootstrap Navigation
-
-This theme comes with the [Bootstrap Nav Walker](https://github.com/twittem/wp-bootstrap-navwalker) developed by [twittem](https://github.com/twittem/). Reference the [Github](https://github.com/twittem/wp-bootstrap-navwalker) page on how to make changes.
 
 That's just about it! Let me know if you have any questions and I'll be sure to answer them! [zach.adams383@gmail.com](mailto:zach-adams383@gmail.com)
 
