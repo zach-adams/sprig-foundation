@@ -1,34 +1,25 @@
-<header class="banner navbar navbar-default navbar-static-top" role="banner">
-  <div class="container">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="{{ wp.home_url() }}">{{ wp.bloginfo('name') }}</a>
-    </div>
-
-    <nav class="collapse navbar-collapse" role="navigation">
+<div class="top-bar-container">
+    <nav class="top-bar" data-topbar>
+        <ul class="title-area">
+            <li class="name">
+                <h1> <a href="{{ wp.home_url }}" rel="nofollow">{{ wp.bloginfo('name') }}</a></h1>
+            </li>
+            <li class="toggle-topbar menu-icon">
+                <a href="#"><span>Menu</span></a>
+            </li>
+        </ul>
+        <section class="top-bar-section">
         {% if wp.has_nav_menu('primary_navigation') %}
-            <div class="collapse navbar-collapse">
-                {{ wp.wp_nav_menu({
-                    'theme_location':'primary_navigation',
-                    'menu_class':'nav navbar-nav',
-                    'walker': wp.returnObject('wp_bootstrap_navwalker'),
-                    'container':false,
-                    'depth':2,
-                    'fallback_cb':'wp_bootstrap_navwalker::fallback'
-                }) }}
-                <form id="searchform" class="navbar-form navbar-right" role="search" action="{{ wp.site_url() }}" method="get">
-                    <div class="form-group">
-                        <input id="s" name="s" type="text" class="form-control" placeholder="" value="{{ wp.get_search_query() }}">
-                    </div>
-                    <button id="searchsubmit" type="submit" class="btn btn-default">Search</button>
-                </form>
-            </div>
+            {{ wp.wp_nav_menu({
+                'theme_location':'primary_navigation',
+                'walker': wp.returnObject('wp_foundation_navwalker'),
+                'container':false,
+                'depth':5,
+                'menu_class' : 'top-bar-menu left',
+                'fallback_cb':false
+            }) }}
         {% endif %}
+        </section>
     </nav>
-  </div>
-</header>
+</div>
+<hr />

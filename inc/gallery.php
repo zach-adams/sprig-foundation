@@ -4,8 +4,6 @@
  *
  * Re-create the [gallery] shortcode and use thumbnails styling from Bootstrap
  * The number of columns must be a factor of 12.
- *
- * @link http://getbootstrap.com/components/#thumbnails
  */
 function sprig_gallery($attr) {
   $post = get_post();
@@ -49,7 +47,7 @@ function sprig_gallery($attr) {
 
   $id = intval($id);
   $columns = (12 % $columns == 0) ? $columns: 4;
-  $grid = sprintf('col-sm-%1$s col-lg-%1$s', 12/$columns);
+  $grid = sprintf('small-%1$s large-%1$s', 12/$columns);
 
   if ($order === 'RAND') {
     $orderby = 'none';
@@ -81,34 +79,31 @@ function sprig_gallery($attr) {
   }
 
   $unique = (get_query_var('page')) ? $instance . '-p' . get_query_var('page'): $instance;
-  $output = '<div class="gallery gallery-' . $id . '-' . $unique . '">';
+  $output = '<div class="small-block-grid-4 gallery-' . $id . '-' . $unique . '">';
 
   $i = 0;
   foreach ($attachments as $id => $attachment) {
     switch($link) {
       case 'file':
-        $image = wp_get_attachment_link($id, $size, false, false);
+        $image = wp_get_attachment_link($id, $size, false,  array('class' => 'th'));
         break;
       case 'none':
-        $image = wp_get_attachment_image($id, $size, false, array('class' => 'thumbnail img-thumbnail'));
+        $image = wp_get_attachment_image($id, $size, false, array('class' => 'th'));
         break;
       default:
-        $image = wp_get_attachment_link($id, $size, true, false);
+        $image = wp_get_attachment_link($id, $size, true,  array('class' => 'th'));
         break;
     }
-    $output .= ($i % $columns == 0) ? '<div class="row gallery-row">': '';
-    $output .= '<div class="' . $grid .'">' . $image;
+    $output .= '<li>' . $image;
 
     if (trim($attachment->post_excerpt)) {
       $output .= '<div class="caption hidden">' . wptexturize($attachment->post_excerpt) . '</div>';
     }
 
-    $output .= '</div>';
+    $output .= '</li>';
     $i++;
-    $output .= ($i % $columns == 0) ? '</div>' : '';
   }
 
-  $output .= ($i % $columns != 0 ) ? '</div>' : '';
   $output .= '</div>';
 
   return $output;
@@ -124,7 +119,7 @@ if (current_theme_supports('bootstrap-gallery')) {
  */
 function sprig_attachment_link_class($html) {
   $postid = get_the_ID();
-  $html = str_replace('<a', '<a class="thumbnail img-thumbnail"', $html);
+  $html = str_replace('<a', '<a class="th"', $html);
   return $html;
 }
 add_filter('wp_get_attachment_link', 'sprig_attachment_link_class', 10, 1);

@@ -3,17 +3,17 @@
     {% set comments = wp.get_comments({'post_id':wp.get_the_ID,'status':'approve'}) %}
     <section id="comments">
         {% if comments is not empty %}
-            <ol class="media-list">
+            <ul class="no-bullet">
                 {{ wp.wp_list_comments({'walker':wp.returnObject('sprig_Walker_Comment')}, comments) }}
-            </ol>
+            </ul>
             {% if wp.get_comment_pages_count > 1 and wp.get_option('page_comments') %}
                 <nav>
-                    <ul class="pager">
+                    <ul class="pagination">
                         {% if wp.get_previous_comments_link %}
-                            <li class="previous">{{ wp.previous_comments_link('Older comments') }}</li>
+                            <li>{{ wp.previous_comments_link('&laquo; Older comments') }}</li>
                         {% endif %}
                         {% if wp.get_next_comments_link %}
-                            <li class="next">{{ wp.next_comments_link('Newer comments') }}</li>
+                            <li>{{ wp.next_comments_link('Newer comments &raquo;') }}</li>
                         {% endif %}
                     </ul>
                 </nav>
@@ -31,7 +31,7 @@
             <h4>No Comments!</h4>
         {% endif %}
     </section>
-    <section id="respond" class="well">
+    <section id="respond" class="panel">
         {% if wp.comments_open %}
             <h3>{{ wp.comment_form_title('Leave a Reply', 'Leave a Reply to') }}</h3>
             <p class="cancel-comment-reply">{{ wp.cancel_comment_reply_link }}</p>
@@ -47,38 +47,63 @@
                     </p>
                 {% else %}
                     {% if wp.get_option('require_name_email') == true %}
-                        <div class="form-group">
-                            <label for="author">Name required</label>
-                            <input type="text" class="form-control" name="author" id="author" size="22" aria-required="true">
+                        <div class="small-12 columns">
+                            <div class="row">
+                                <label for="author">Name required
+                                    <input type="text" class="form-control" name="author" id="author" size="22" aria-required="true">
+                                </label>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="email">Email (will not be published) required</label>
-                            <input type="email" class="form-control" name="email" id="email" size="22" aria-required="true">
+                        <div class="row">
+                            <div class="small-12 columns">
+                                <label for="email">Email (will not be published) required
+                                    <input type="email" class="form-control" name="email" id="email" size="22" aria-required="true">
+                                </label>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="url">Website</label>
-                            <input type="url" class="form-control" name="url" id="url" size="22">
+                        <div class="row">
+                            <div class="small-12 columns">
+                                <label for="url">Website
+                                    <input type="url" class="form-control" name="url" id="url" size="22">
+                                </label>
+                            </div>
                         </div>
                     {% else %}
-                        <div class="form-group">
-                            <label for="author">Name</label>
-                            <input type="text" class="form-control" name="author" id="author" size="22">
+                        <div class="row">
+                            <div class="small-12 columns">
+                                <label for="author">Name
+                                    <input type="text" class="form-control" name="author" id="author" size="22">
+                                </label>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="email">Email (will not be published)</label>
-                            <input type="email" class="form-control" name="email" id="email" size="22">
+                        <div class="row">
+                            <div class="small-12 columns">
+                                <label for="email">Email (will not be published)
+                                    <input type="email" class="form-control" name="email" id="email" size="22">
+                                </label>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="url">Website</label>
-                            <input type="url" class="form-control" name="url" id="url" size="22">
+                        <div class="row">
+                            <div class="small-12 columns">
+                                <label for="url">Website
+                                    <input type="url" class="form-control" name="url" id="url" size="22">
+                                </label>
+                            </div>
                         </div>
                     {% endif %}
                 {% endif %}
-                    <div class="form-group">
-                        <label for="comment">Comment</label>
-                        <textarea name="comment" id="comment" class="form-control" rows="5" aria-required="true"></textarea>
+                    <div class="row">
+                        <div class="small-12 columns">
+                            <label for="comment">Comment
+                                <textarea name="comment" id="comment" class="form-control" rows="5" aria-required="true"></textarea>
+                            </label>
+                        </div>
                     </div>
-                    <p><input name="submit" class="btn btn-primary" type="submit" id="submit" value="Submit Comment"></p>
+                    <div class="row">
+                        <div class="small-12 columns">
+                            <p><input name="submit" class="button" type="submit" id="submit" value="Submit Comment"></p>
+                        </div>
+                    </div>
                 {{ wp.comment_id_fields }}
                 {{ wp.do_action('comment_form', wp.get_the_ID) }}
                 </form>

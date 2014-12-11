@@ -14,6 +14,7 @@ textarea {
 h1, h2, h3, h4, h5, h6 {
 	clear: both;
     text-overflow: ellipsis;
+  	word-wrap:break-word;
 }
 
 p {
@@ -80,4 +81,7 @@ small {
 
 big {
 	font-size: 125%;
+}
+article, .comment {
+  	word-wrap:break-word;
 }

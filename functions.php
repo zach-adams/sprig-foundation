@@ -13,12 +13,13 @@ $sprig_includes = array(
 	'inc/config.php',                 // Configuration
 	'inc/activation.php',             // Theme activation
 	'inc/titles.php',                 // Page titles
-	'inc/wp_bootstrap_navwalker.php', // Bootstrap Nav Walker (From https://github.com/twittem/wp-bootstrap-navwalker)
+	'inc/wp_foundation_navwalker.php', // Foundation Nav Walker
 	'inc/gallery.php',                // Custom [gallery] modifications
 	'inc/comments.php',               // Custom comments modifications
 	'inc/scripts.php',                // Scripts and stylesheets
 	'inc/twigpress.php',                   // Load TwigPress Engine
 	'inc/extras.php',                  // Custom functions
+	'inc/paging.php'
 );
 
 foreach ($sprig_includes as $file) {

@@ -29,24 +29,31 @@ class sprig_Walker_Comment extends Walker_Comment {
     extract($args, EXTR_SKIP); ?>
 
   <li id="comment-<?php comment_ID(); ?>" <?php comment_class('media comment-' . get_comment_ID()); ?>>
-    <?php echo get_avatar($comment, $size = '64'); ?>
-    <div class="media-body">
-    <h4 class="media-heading"><?php echo get_comment_author_link(); ?>
-        <small>
-	        <time datetime="<?php echo get_comment_date('c'); ?>"><?php printf(__('%1$s', 'sprig'), get_comment_date(),  get_comment_time()); ?></time> at <?php comment_time('G:i A'); ?>
-        </small>
-    </h4>
-
-    <?php edit_comment_link(__('(Edit)', 'sprig'), '', ''); ?>
-
-    <?php if ($comment->comment_approved == '0') : ?>
-      <div class="alert alert-info">
-        <?php _e('Your comment is awaiting moderation.', 'sprig'); ?>
+    <div class="row">
+      <div class="small-2 columns">
+        <?php echo get_avatar($comment, $size = '86'); ?>
       </div>
-    <?php endif; ?>
+      <div class="small-10 columns">
+          <h4><?php echo get_comment_author_link(); ?>
+            <small>
+              <time datetime="<?php echo get_comment_date('c'); ?>"><?php printf(__('%1$s', 'sprig'), get_comment_date(),  get_comment_time()); ?></time> at <?php comment_time('G:i A'); ?>
+            </small>
+          </h4>
+          <?php edit_comment_link(__('(Edit)', 'sprig'), '', ''); ?>
 
-    <?php comment_text(); ?>
-    <?php comment_reply_link(array_merge($args, array('depth' => $depth, 'max_depth' => $args['max_depth']))); ?>
+          <?php if ($comment->comment_approved == '0') : ?>
+            <div class="alert alert-info">
+              <?php _e('Your comment is awaiting moderation.', 'sprig'); ?>
+            </div>
+          <?php endif; ?>
+
+          <?php comment_text(); ?>
+          <?php comment_reply_link(array_merge($args, array('depth' => $depth, 'max_depth' => $args['max_depth']))); ?>
+      </div>
+    </div>
+
+
+
 
   <?php
   }
@@ -57,14 +64,14 @@ class sprig_Walker_Comment extends Walker_Comment {
       return;
     }
     // Close ".media-body" <div> located in templates/comment.php, and then the comment's <li>
-    echo "</div></li>\n";
+    echo "</li>\n";
   }
 }
 
 function sprig_get_avatar($avatar, $type) {
   if (!is_object($type)) { return $avatar; }
 
-  $avatar = str_replace("class='avatar", "class='avatar pull-left media-object", $avatar);
+  $avatar = str_replace("class='avatar", "class='avatar media-object", $avatar);
   return $avatar;
 }
 add_filter('get_avatar', 'sprig_get_avatar', 10, 2);
