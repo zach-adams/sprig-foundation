@@ -1,9 +1,9 @@
-Sprig Wordpress Starter Theme with Foundation
+[Sprig Wordpress Starter Theme with Foundation](http://sprigwp.com)
 =========
 
 Create themes quicker and easier then ever before with the incredible power of Twig's PHP Templating Engine. Built off of [underscore](https://github.com/Automattic/_s/), [Roots](https://github.com/roots/roots), and [Twigpress](https://wordpress.org/plugins/twigpress/), Sprig has tons of functions and useful Wordpress features essential to any theme.
 
-This version comes with Foundation, looking for the Bootstrap version? [It's right here!](https://github.com/zach-adams/sprig)
+By default Sprig comes with Bootstrap, looking for the Foundation version? [It's right here!](https://github.com/zach-adams/sprig-foundation)
 
 Special Thanks to [Mike Shaw](https://profiles.wordpress.org/mikeshaw217/), the Team at [Roots](http://roots.io), and the creators of [underscore](https://github.com/Automattic/_s) for making the Twigpress Wordpress Plugin, the Roots Starter Theme and the _s Theme respectively.
 
@@ -12,7 +12,7 @@ Special Thanks to [Mike Shaw](https://profiles.wordpress.org/mikeshaw217/), the 
 * [Twig Templating Engine](http://twig.sensiolabs.org/)
 * [Gulp](http://gulpjs.com/) for SASS compiling, file concatination, image minifying, javascript uglifying, and livereload
 * [Bower](http://bower.io/) for front-end package management
-* [Foundation](http://foundation.zurb.com/)
+* [Bootstrap](http://getbootstrap.com/)
 * HTML5 Ready
 * Tons of useful functions and theme activation thanks to [Roots](https://github.com/roots/roots)
 
@@ -31,12 +31,9 @@ Twig is a flexible, fast, and secure template engine for PHP. It allows develope
 Here's the Wordpress loop in Twig:
 
 ```php
-    {% for post in posts %} {{ wp.the_post }}
+    {% for post in posts() %} {{ the_post(post) }}
         <a href="{{ wp.the_permalink }}">{{ wp.the_title }}</a>
     {% endfor %}
-    {% if posts is empty %}
-        <p>Nothing here</p>
-    {% endif %}
 ```
 
 ## How is Twig used in this theme?
@@ -49,6 +46,12 @@ You call functions like normal except with `wp` prepended to them like (wp.the_t
 
 ```php
 wp.comment_form_title('Leave a Reply', 'Leave a Reply to')
+```
+
+Or simply:
+
+```php
+wp.comment_form_title
 ```
 
 If you need to give it an array as an argument you can like so:
@@ -75,22 +78,39 @@ wp.returnObject('sprig_Walker_Comment')
 {{ wp.wp_list_comments({'walker':wp.returnObject('sprig_Walker_Comment')}, comments) }}
 ```
 
-## Custom Loops
+## Wordpress Loop
 
-You can create custom loops like so:
+You can access the Wordpress loop with the `posts()` function. The `posts()` function without any arguments will return the original Wordpress loop. Instead of using `the_post()` like normal you need to pass in the post object so it will setup correctly.
 
 ```php
-{% set posts = wp.newLoop({
-    'orderby':'name',
-    'order':'ASC'
-}) %}
-{% for post in posts %}{{ wp.newPostData(post) }}
-    {% include 'content/content-excerpt.twig' %}
-    <hr/>
+{% for post in posts() %}{{ the_post(post) }}
+    {{ wp.the_title }}
 {% endfor %}
 ```
 
-The reason for the functions newLoop and newPostData is that Twig doesn't like accessing global variables, so newLoop and newPostData are functions located in `twigpress.php` that access and return them for Twig.
+### Wordpress Custom Loops
+
+Instead of using an empty `posts` function you can pass in arguments like you would with [WP_Query](http://codex.wordpress.org/Class_Reference/WP_Query).
+
+```php
+{% for post in posts({
+    'orderby':'name',
+    'order':'ASC'})
+%}{{ the_post(post) }}
+    {% include 'content/content-excerpt.twig' %}
+{% endfor %}
+```
+
+### Advanced Custom Field Repeater Loops
+
+You can get Repeater loops like this:
+
+```php
+{% for row in wp.get_field('images') %}
+    <h1>{{ row.title }}</h1>
+    {{ wp.wp_get_attachment_image(row.image, 'full') }}
+{% endfor %}
+```
 
 ## Caveats
 
@@ -98,7 +118,7 @@ There's always a catch. There are some interesting hacks I had to include in ord
 
 - **All Non-Twig functions must be preceded by 'wp'** (e.x. wp.the_title, wp.the_content, etc.). Normally in Twig you'd tell it which functions and variables you'd like to be able to use in the environment, however it would get tedious to add all the Wordpress functions to the Twig Loader. So instead I added a proxy function `wp` which is just a wrapper for `call_user_func_array`. 
 - **Some Wordpress functions don't like to be echoed** (e.x. dynamic_sidebar). Instead you can just use Twig's [set](http://twig.sensiolabs.org/doc/tags/set.html) to not echo but still have the function run (e.x {% `set sidebar = dynamic_sidebar('primary') %}`)
-- **Accessing Global Variables**. Twig does NOT like accessing global variables which Wordpress relies on. Instead you'll have to make the global variables. I've already added two, `wp_query` for the wp_query global variable and `posts` which returns all the posts necessary for the Wordpress loop to work. 
+- **Accessing Global Variables**. Twig does NOT like accessing global variables which Wordpress relies on. Instead you'll have to make the global variables. I've already added two, `wp_query` for the wp_query global variable and `posts()` function which returns all the posts necessary for the Wordpress loop to work. 
 
 ### Directory Structure
 
@@ -109,16 +129,16 @@ There's always a catch. There are some interesting hacks I had to include in ord
 +-- inc/ - Various helpful functions and Twig code. All included in function.php
 |   +-- Twig/ - Twig Engine and init code
 |   +-- activation.php - Code to run on theme activation
-|   +-- comments.php - Custom comments walker optimized for Foundation
+|   +-- comments.php - Custom comments walker optimized for Bootstrap
 |   +-- config.php - Theme configuration options
 |   +-- extras.php - Some extra functions and important Twig Wordpress helper functions
-|   +-- gallery.php - Cleans up the gallery shortcode and optimizes it for Foundation
+|   +-- gallery.php - Cleans up the gallery shortcode and optimizes it for Bootstrap
 |   +-- init.php - Code to run on theme init
 |   +-- scripts.php - Scripts queueing
 |   +-- titles.php - Better titles function (Thanks to _s!)
 |   +-- twigpress.php - Loader for the Twig Engine
 |   +-- utils.php - Utility functions
-|   +-- wp_foundation_navwalker.php - Navwalker optimized for Foundation
+|   +-- wp_bootstrap_navwalker.php - Navwalker optimized for Bootstrap
 +-- src/ - Development Files
 |   +-- js/ - Javascript files
 |   +-- sass/ - Default SASS directory
@@ -170,6 +190,10 @@ Gulp has a plugin called main-bower-files that can read the main files in each b
 3. Put in the name of the Bower Package
 4. **main** is the name of the Javascript files that are passed to Gulp to be minified, you can edit which one Bower chooses by default
 5. **ignore**, if set to true, will set the package to be ignored by Gulp when it looks
+
+## Bootstrap Navigation
+
+This theme comes with the [Bootstrap Nav Walker](https://github.com/twittem/wp-bootstrap-navwalker) developed by [twittem](https://github.com/twittem/). Reference the [Github](https://github.com/twittem/wp-bootstrap-navwalker) page on how to make changes.
 
 That's just about it! Let me know if you have any questions and I'll be sure to answer them! [zach.adams383@gmail.com](mailto:zach-adams383@gmail.com)
 
