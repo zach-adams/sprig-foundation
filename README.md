@@ -1,11 +1,11 @@
-[Sprig Wordpress Starter Theme with Foundation](http://sprigwp.com)
+[Sprig WordPress Starter Theme with Foundation](http://sprigwp.com)
 =========
 
-Create themes quicker and easier then ever before with the incredible power of Twig's PHP Templating Engine. Built off of [underscore](https://github.com/Automattic/_s/), [Roots](https://github.com/roots/roots), and [Twigpress](https://wordpress.org/plugins/twigpress/), Sprig has tons of functions and useful Wordpress features essential to any theme.
+Create themes quicker and easier then ever before with the incredible power of Twig's PHP Templating Engine. Built off of [underscore](https://github.com/Automattic/_s/), [Roots](https://github.com/roots/roots), and [Twigpress](https://wordpress.org/plugins/twigpress/), Sprig has tons of functions and useful WordPress features essential to any theme.
 
 By default Sprig comes with Bootstrap, looking for the Foundation version? [It's right here!](https://github.com/zach-adams/sprig-foundation)
 
-Special Thanks to [Mike Shaw](https://profiles.wordpress.org/mikeshaw217/), the Team at [Roots](http://roots.io), and the creators of [underscore](https://github.com/Automattic/_s) for making the Twigpress Wordpress Plugin, the Roots Starter Theme and the _s Theme respectively.
+Special Thanks to [Mike Shaw](https://profiles.wordpress.org/mikeshaw217/), the Team at [Roots](http://roots.io), and the creators of [underscore](https://github.com/Automattic/_s) for making the Twigpress WordPress Plugin, the Roots Starter Theme and the _s Theme respectively.
 
 ## Features
 
@@ -18,7 +18,7 @@ Special Thanks to [Mike Shaw](https://profiles.wordpress.org/mikeshaw217/), the 
 
 ## Installing
 
-1. Clone this repo - `git clone git@github.com:zach-adams/sprig.git` or [download the zip file](https://github.com/zach-adams/sprig/archive/master.zip) and install it like a normal Wordpress theme.
+1. Clone this repo - `git clone git@github.com:zach-adams/sprig.git` or [download the zip file](https://github.com/zach-adams/sprig/archive/master.zip) and install it like a normal WordPress theme.
 2. Go to the theme directory and run `sudo npm install` or `npm install`
 3. Run `bower install` to install dependencies
 4. Run `gulp dev` to compile the initial css and js or just `gulp` to compile initial css and js and then run watch task
